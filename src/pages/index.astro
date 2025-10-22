@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';	
+import Hero from '../components/Hero.svelte';
+import Hero2 from '../components/Hero2.svelte';
+import Hero3 from '../components/Hero3.svelte';
+import ScrollVideoPlayer from '../components/React';
+import ImageVideoPlayer from '../components/React2';
+import React3 from '../components/React3';
+import Bento from '../components/Bento.svelte';
+import BentoPortfolio from '../components/BentoReact.tsx';
+
+
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout>
+  <script is:inline>
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100vh';
+  </script>
+
+
+<!-- <BentoPortfolio client:load /> -->
+<!-- <Bento client:load /> -->
+  <Hero2 client:load />
+  <Hero3 client:load />
+
+</Layout>
