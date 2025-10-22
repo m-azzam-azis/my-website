@@ -349,12 +349,6 @@
           gsap.set(".bento-grid", { opacity: 0, y: 50 });
         }
       },
-
-      snap: {
-        snapTo: 1,
-        duration: 0.8,
-        ease: "power2.inOut",
-      },
     });
 
     gsap.to(".canvas-container", {
