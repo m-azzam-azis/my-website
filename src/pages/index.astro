@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';	
-import Hero from '../components/Hero.svelte';
+// import Hero from '../components/Hero.svelte';
 import Hero2 from '../components/Hero2.svelte';
 import Hero3 from '../components/Hero3.svelte';
 import Hero4 from '../components/Hero4.svelte';
@@ -10,6 +10,7 @@ import ImageVideoPlayer from '../components/React2';
 import React3 from '../components/React3';
 import Bento from '../components/Bento.svelte';
 import BentoPortfolio from '../components/BentoReact.tsx';
+import PortfolioSite from '../components/PortfolioSite';
 
 
 
@@ -23,11 +24,11 @@ import BentoPortfolio from '../components/BentoReact.tsx';
     document.body.style.height = '100vh';
   </script>
 
-
-<!-- <BentoPortfolio client:load /> -->
-<!-- <Bento client:load /> -->
+<!-- <PortfolioSite client:load /> -->
   <!-- <Hero4 client:load /> -->
+
   <Hero2 client:load />
+
   <Hero3 client:load />
 
 </Layout>

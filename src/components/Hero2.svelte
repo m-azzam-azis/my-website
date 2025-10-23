@@ -267,91 +267,108 @@
       },
     });
 
-    gsap.to(".hero-text", {
-      opacity: 0,
-      y: -50,
-      scale: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: sectionRef,
-        start: "top top",
-        end: "30% top",
-        scrub: 1.5,
-      },
+    // FIX: Set perspective on the parent of all 3D-transforming elements
+    // The closest common parent is the sticky div containing the canvas-container and bento-grid.
+    // In your Svelte template, this is the div with classes "sticky top-0 h-screen w-full..."
+    // We'll apply the perspective to the '.canvas-container' since it also holds the text and is a good central scene.
+    gsap.set(".scene-container", {
+      transformStyle: "preserve-3d",
+      perspective: "1000px", // ADDED PERSPECTIVE HERE!
     });
-
-    gsap.to(".video-overlay", {
-      opacity: 0.5,
-      ease: "none",
-      scrollTrigger: {
-        trigger: sectionRef,
-        start: "top top",
-        end: FRAME_ANIMATION_END,
-        scrub: 1.5,
-      },
-    });
-
-    gsap.to(".vignette", {
-      opacity: 0.5,
-      ease: "none",
-      scrollTrigger: {
-        trigger: sectionRef,
-        start: "top top",
-        end: FRAME_ANIMATION_END,
-        scrub: 1.5,
-      },
-    });
-
     gsap.set(".canvas-container", {
       transformStyle: "preserve-3d",
-      perspective: "1000px",
+      perspective: "1000px", // ADDED PERSPECTIVE HERE!
     });
 
-    const bentoTimeline = gsap.timeline({ defaults: { ease: "none" } });
+    // Ensure all 3D elements also preserve 3D space
+    gsap.set(".bento-grid, .hero-text", {
+      transformStyle: "preserve-3d",
+    });
 
-    // 1. Quick Appearance:
-    bentoTimeline.to(
-      ".bento-grid",
-      {
-        opacity: 1,
-        y: 0,
-      },
-      0.05
-    );
+    // APPLY HEADER/HERO TEXT LOGIC (progress 0 to 0.25)
+    const heroTextAnimation = (progress) => {
+      if (progress <= 0.25) {
+        // Z-axis movement: 0 to -500
+        const zProgress = progress / 0.25;
+        const translateZ = zProgress * -500;
 
-    // 2. Hold (Stay visible):
-    bentoTimeline.to(
-      ".bento-grid",
-      {
-        opacity: 1,
-        y: 0,
-      },
-      0.75
-    );
-
-    // 3. Recede:
-    bentoTimeline.to(
-      ".bento-grid",
-      {
-        y: -100,
-      },
-      1
-    );
-
-    ScrollTrigger.create({
-      trigger: sectionRef,
-      start: `${FINAL_TRANSITION_START}`,
-      end: "bottom top",
-      scrub: 1.5,
-      animation: bentoTimeline,
-
-      onToggle: (self) => {
-        if (self.isActive) {
-          gsap.set(".bento-grid", { opacity: 0, y: 50 });
+        // Opacity: 1 to 0 between 0.2 and 0.25
+        let opacity = 1;
+        if (progress >= 0.2) {
+          const fadeProgress = Math.min((progress - 0.2) / (0.25 - 0.2), 1);
+          opacity = 1 - fadeProgress;
         }
+
+        gsap.set(".hero-text", {
+          transform: `translateZ(${translateZ}px)`,
+          opacity: opacity,
+        });
+      } else {
+        gsap.set(".hero-text", { opacity: 0 });
+      }
+    };
+
+    // APPLY HERO IMG/BENTO GRID LOGIC (progress 0.6 to 0.9)
+    const bentoGridAnimation = (progress) => {
+      // --- Phase 1: APPEAR (Progress 0.5 to 0.7) ---
+      if (progress < 0.5) {
+        // Initial state (Before animation starts)
+        gsap.set(".bento-grid", {
+          transform: "translateZ(1000px)", // Far away
+          opacity: 0, // Invisible
+        });
+      } else if (progress >= 0.5 && progress <= 0.7) {
+        // Animation to bring it forward (1000px to 0px)
+        const appearProgress = (progress - 0.5) / 0.2; // 0 to 1 over the 0.5-0.7 range
+        const translateZ = 1000 - appearProgress * 1000; // 1000px down to 0px
+
+        // Opacity FADE IN (0 to 1)
+        let opacity = Math.min(appearProgress * 2, 1); // Fades in quickly (0.5 to 0.6)
+
+        gsap.set(".bento-grid", {
+          transform: `translateZ(${translateZ}px)`,
+          opacity: opacity,
+        });
+      }
+      // --- Phase 2: HOLD (Progress 0.7 to 0.8) ---
+      else if (progress > 0.7 && progress <= 0.8) {
+        // Stay in the final position
+        gsap.set(".bento-grid", {
+          transform: "translateZ(0px)",
+          opacity: 1,
+        });
+      }
+      // --- Phase 3: DISAPPEAR (Progress 0.8 to 1.0) ---
+      else {
+        // progress > 0.8
+        // Animation to push it away and fade it out
+        const disappearProgress = (progress - 0.8) / 0.2; // 0 to 1 over the 0.8-1.0 range
+        const translateZ = disappearProgress * -1000; // 0px up to 1000px
+        const opacity = 1;
+
+        gsap.set(".bento-grid", {
+          transform: `translateZ(${translateZ}px)`,
+          opacity: opacity,
+        });
+      }
+    };
+
+    // Update the GSAP animation to use the two new functions
+    const masterTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        onUpdate: (self) => {
+          const totalProgress = self.progress;
+          heroTextAnimation(totalProgress);
+          bentoGridAnimation(totalProgress);
+        },
       },
     });
 
+    // Modified canvas-container animation to remove scale/z change in favor of the bento grid
     gsap.to(".canvas-container", {
       scale: 0.9,
       z: -100,
@@ -471,7 +488,7 @@
       style="height: {SCROLL_HEIGHT}vh;"
     >
       <div
-        class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#202020]"
+        class=" scene-container sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#202020]"
       >
         <div
           class="canvas-container relative w-full h-full overflow-hidden transition-all"
@@ -482,12 +499,7 @@
           ></canvas>
 
           <div
-            class="video-overlay absolute inset-0 bg-black opacity-30 pointer-events-none"
-          ></div>
-
-          <div
-            class="vignette absolute inset-0 pointer-events-none opacity-0"
-            style="background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%)"
+            class="vignette video-overlay absolute inset-0 bg-black opacity-30 pointer-events-none"
           ></div>
 
           <div
@@ -555,7 +567,6 @@
                 </h1>
               </div>
 
-              <!-- only for desktop -->
               <div
                 class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 {cardDecorations} hover:scale-[1.01] relative overflow-hidden max-md:hidden"
               >
@@ -650,33 +661,8 @@
 </div>
 
 <style>
-  :global(body),
-  :global(html) {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
-
   .canvas-container {
     transform-origin: center center;
     will-change: transform, border-radius;
-  }
-
-  .digit-wrapper {
-    overflow: hidden;
-    height: 120px;
-    display: inline-block;
-  }
-
-  .digit-scroll {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .bg-dots-pattern {
-    background-image: radial-gradient(currentColor 1px, transparent 1px);
-    background-size: 20px 20px;
-    color: #fcefd4;
-    background-color: #fcfcfc;
   }
 </style>
