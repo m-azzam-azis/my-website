@@ -3,7 +3,8 @@
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import Lenis from "@studio-freight/lenis";
-  import { Linkedin, Github, Instagram, FileText } from "lucide-svelte";
+  import NumberFlow from "@number-flow/svelte";
+  import { Linkedin, Github, FileText, InstagramIcon } from "lucide-svelte";
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -30,7 +31,7 @@
   let actualLoadProgress = 0;
 
   const FRAME_DURATION_VH = 350;
-  const END_DURATION_VH = 250;
+  const END_DURATION_VH = 200;
   const SCROLL_HEIGHT = FRAME_DURATION_VH + END_DURATION_VH;
   const ANIMATION_END_RATIO = FRAME_DURATION_VH / SCROLL_HEIGHT;
   const FRAME_ANIMATION_END = `${ANIMATION_END_RATIO * 100}% top`;
@@ -49,8 +50,8 @@
     },
     { name: "github", icon: Github, url: "https://github.com/m-azzam-azis" },
     {
-      name: "instagram",
-      icon: Instagram,
+      name: "Insta",
+      icon: InstagramIcon,
       url: "https://www.instagram.com/m.azzam.azis/",
     },
   ];
@@ -387,7 +388,7 @@
 
       gsap.to(progressProxy, {
         p: target,
-        duration: 0.4,
+        duration: 1,
         ease: "power1.out",
         onUpdate: () => {
           loadProgress = Math.round(progressProxy.p);
@@ -397,7 +398,7 @@
       if (loadProgress >= 100 && loadingComplete) {
         clearInterval(progressTimer);
       }
-    }, 100);
+    }, 250);
 
     await priorityLoadPromise;
 
@@ -425,7 +426,7 @@
           },
         });
       }
-    }, 500);
+    }, 250);
 
     return () => {
       clearInterval(progressTimer);
@@ -439,11 +440,6 @@
       document.body.style.height = "";
     };
   });
-
-  let safeLoadProgress = $derived(Math.min(loadProgress, 100));
-  let hundreds = $derived(Math.floor(safeLoadProgress / 100));
-  let tens = $derived(Math.floor((safeLoadProgress % 100) / 10));
-  let ones = $derived(safeLoadProgress % 10);
 </script>
 
 <div
@@ -460,53 +456,9 @@
       class="loading-section fixed inset-0 bg-[#FAF7F0] z-50 flex items-center justify-center will-change-transform"
       style="transform: translateY(0);"
     >
-      <div class="text-center overflow-hidden mb-8 ml-8" style="height: 120px;">
-        <div class="flex gap-1 text-9xl font-bold w-full h-full">
-          {#if hundreds > 0}
-            <div class="digit-wrapper" style="margin-right: 4px;">
-              <div
-                class="digit-scroll"
-                style="transform: translateY({-hundreds *
-                  120}px); transition: transform 10s ease-in-out;"
-              >
-                {#each [0, 1] as num}
-                  <div
-                    style="height: 120px; display: flex; align-items: center;"
-                  >
-                    {num}
-                  </div>
-                {/each}
-              </div>
-            </div>
-          {/if}
-
-          <div class="digit-wrapper" style="margin-right: 4px;">
-            <div
-              class="digit-scroll"
-              style="transform: translateY({-tens *
-                120}px); transition: transform 0.15s ease-out;"
-            >
-              {#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0] as num}
-                <div style="height: 120px; display: flex; align-items: center;">
-                  {num}
-                </div>
-              {/each}
-            </div>
-          </div>
-
-          <div class="digit-wrapper">
-            <div
-              class="digit-scroll"
-              style="transform: translateY({-ones *
-                120}px); transition: transform 0.15s ease-out;"
-            >
-              {#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0] as num}
-                <div style="height: 120px; display: flex; align-items: center;">
-                  {num}
-                </div>
-              {/each}
-            </div>
-          </div>
+      <div class="text-center overflow-hidden mb-8 ml-8">
+        <div class="flex gap-1 text-9xl font-bold w-full h-full p-10">
+          <NumberFlow trend={1} value={loadProgress} />
         </div>
       </div>
     </div>
@@ -636,7 +588,7 @@
               {#each socials as social}
                 <a
                   href={social.url}
-                  class="bg-emerald-300 hover:bg-emerald-400 rounded-2xl md:rounded-3xl px-4 py-3 md:px-6 md:py-4 text-gray-900 font-medium text-sm md:text-base lg:text-lg flex items-center justify-center gap-2 md:gap-3 {cardDecorations}  col-span-1"
+                  class="bg-emerald-300 hover:bg-emerald-200 rounded-2xl md:rounded-3xl px-4 py-3 md:px-6 md:py-4 text-gray-900 font-medium text-sm md:text-base lg:text-lg flex items-center justify-center gap-2 md:gap-3 {cardDecorations}  col-span-1"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -676,7 +628,7 @@
 
               <a
                 href={`mailto:${email}`}
-                class="bg-emerald-700 rounded-2xl md:rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center md:col-span-3 {cardDecorations} hover:scale-[1.01] hover:ring-4 hover:ring-emerald-500/50"
+                class="bg-emerald-700 rounded-2xl md:rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center md:col-span-3 {cardDecorations} hover:scale-[1.01]"
               >
                 <h2
                   class="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white mb-4 md:mb-6"
