@@ -375,7 +375,8 @@
             </a>
           {/each}
           <a
-            href="#resume"
+            href="https://drive.google.com/drive/folders/1ESBDTO5NwG0X1pLbpH2op6-Ga-EIpESk?usp=sharing"
+            target="_blank"
             class="bg-gray-900 hover:bg-gray-700 rounded-2xl md:rounded-3xl px-4 py-3 md:px-6 md:py-4 text-white font-medium text-sm md:text-base lg:text-lg flex items-center justify-center gap-2 {cardDecorations} hover:scale-[1.01] col-span-2"
           >
             <FileText class="w-4 h-4 md:w-5 md:h-5" />

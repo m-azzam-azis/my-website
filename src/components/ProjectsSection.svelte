@@ -23,7 +23,7 @@
         { name: "GraphQL" },
       ],
       links: {
-        github: "https://github.com/example/citesmart",
+        github: "https://github.com/m-azzam-azis/cite-smart-fe",
         deploy: "https://cite-smart-ai.vercel.app",
       },
     },
@@ -32,15 +32,9 @@
       image: "/projects/heredicheck.png",
       description:
         "Predicts hereditary disease risks using Graph Neural Networks and FHIR-compliant synthetic data. Generates patient graphs, trains GNNs for disease prediction, and integrates seamlessly with healthcare APIs.",
-      tools: [
-        { name: "Python" },
-        { name: "Next.js" },
-        { name: "Tailwind" },
-        { name: "FHIR" },
-        { name: "Railway" },
-      ],
+      tools: [{ name: "Python" }, { name: "Next.js" }, { name: "FHIR" }],
       links: {
-        github: "https://github.com/example/heredicheck-ai",
+        github: "https://github.com/m-azzam-azis/heredicheck",
         deploy: "https://heredicheck.vercel.app",
       },
     },
@@ -51,7 +45,7 @@
         "Transforms startup ideas into complete business plans using AI. Generates executive summaries, competitor maps, and market insights interactively.",
       tools: [{ name: "Next.js" }, { name: "Supabase" }, { name: "Sonar" }],
       links: {
-        github: "https://github.com/example/gapmap-ai",
+        github: "https://github.com/m-azzam-azis/gapmap-ai",
         deploy: "https://gapmap-ai.my.id",
       },
     },
@@ -59,7 +53,7 @@
       title: "Heartbit",
       image: "/projects/heartbit.jpeg",
       description:
-        "An on-chain Bitcoin inheritance protocol built on Stacks. Users set custom inactivity periods, assign recipients, and funds automatically redistribute if no heartbeat transaction is made. Fully on-chain and open-source for transparency and extensibility.",
+        "An on-chain Bitcoin inheritance protocol built on Stacks. Users set custom inactivity periods, assign recipients, and funds automatically redistribute after designated period ends",
       tools: [
         { name: "Next.js" },
         { name: "Tailwind" },
@@ -68,7 +62,7 @@
         { name: "Clarinet" },
       ],
       links: {
-        github: "https://github.com/example/heartbit",
+        github: "https://github.com/m-azzam-azis/heartbit",
         deploy: "https://heartbit-omega.vercel.app",
       },
     },
@@ -174,8 +168,9 @@
 
 <div
   bind:this={rootElement}
-  class="min-h-[200vh] min-w-fit bg-[#13795B] font-inter text-white"
+  class="min-h-[200vh] min-w-fit lg:min-w-screen bg-[#13795B] font-inter text-white opacity-100 relative"
 >
+  <div class="bg-[#13795b] h-10 top-10 w-full"></div>
   <div
     id="pin-section"
     class="w-full h-screen bg-transparent font-inter text-white"
@@ -209,7 +204,7 @@
               <div>
                 <h2 class="text-4xl font-bold mb-4">{project.title}</h2>
                 <p
-                  class="text-gray-800 text-base leading-relaxed mb-6 whitespace-normal break-words"
+                  class="text-gray-800 text-xs sm:text-sm lg:text-base leading-relaxed mb-6 whitespace-normal break-words"
                 >
                   {project.description}
                 </p>

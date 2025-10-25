@@ -243,7 +243,6 @@
   <section
     bind:this={section2Ref}
     class={`section2 sticky top-0 flex h-screen w-full items-center justify-center bg-[#1E2a56] overflow-hidden shadow-2xl origin-center  `}
-    style={`box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 0 1px #13795B;`}
   >
     <h1
       class={`text-[10vw] font-extrabold text-[#FAF7F0] uppercase tracking-[0.3em] z-10 drop-shadow-lg`}
@@ -272,7 +271,7 @@
 
   <section
     bind:this={section3Ref}
-    class={`section3 sticky top-0 flex h-screen w-full items-center justify-center bg-[#13795B] overflow-hidden  origin-center `}
+    class={`section3 sticky top-0 flex h-screen w-full items-center justify-center bg-[#13795B] overflow-hidden origin-center opacity-100 z-20`}
   >
     <h1
       class={`text-[10vw] font-extrabold text-[#E6E4D9] uppercase tracking-[0.3em] z-10 `}
