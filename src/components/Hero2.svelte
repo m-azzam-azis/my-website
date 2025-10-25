@@ -331,24 +331,11 @@
         });
       }
       // --- Phase 2: HOLD (Progress 0.7 to 0.8) ---
-      else if (progress > 0.7 && progress <= 0.8) {
+      else if (progress > 0.7) {
         // Stay in the final position
         gsap.set(".bento-grid", {
           transform: "translateZ(0px)",
           opacity: 1,
-        });
-      }
-      // --- Phase 3: DISAPPEAR (Progress 0.8 to 1.0) ---
-      else {
-        // progress > 0.8
-        // Animation to push it away and fade it out
-        const disappearProgress = (progress - 0.8) / 0.2; // 0 to 1 over the 0.8-1.0 range
-        const translateZ = disappearProgress * -1000; // 0px up to 1000px
-        const opacity = 1;
-
-        gsap.set(".bento-grid", {
-          transform: `translateZ(${translateZ}px)`,
-          opacity: opacity,
         });
       }
     };
@@ -368,20 +355,25 @@
       },
     });
 
-    // Modified canvas-container animation to remove scale/z change in favor of the bento grid
-    gsap.to(".canvas-container", {
-      scale: 0.9,
-      z: -100,
-      y: -50,
-      borderRadius: "32px",
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: sectionRef,
-        start: FINAL_TRANSITION_START,
-        end: "bottom top",
-        scrub: 1.5,
-      },
-    });
+    // --- PIN HERO SECTION WHILE NEXT ONE SCROLLS OVER ---
+    // ScrollTrigger.create({
+    //   trigger: sectionRef,
+    //   start: "top top",
+    //   end: "bottom top", // when the next section reaches the top
+    //   pin: true,
+    //   pinSpacing: false, // prevent adding extra whitespace
+    // });
+
+    // gsap.to(".next-section", {
+    //   yPercent: 0,
+    //   ease: "none",
+    //   scrollTrigger: {
+    //     trigger: ".next-section",
+    //     start: "top bottom",
+    //     end: "top top",
+    //     scrub: true,
+    //   },
+    // });
 
     renderFrame(0);
     lenis.start();
@@ -488,7 +480,7 @@
       style="height: {SCROLL_HEIGHT}vh;"
     >
       <div
-        class=" scene-container sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#202020]"
+        class="scene-container sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#202020]"
       >
         <div
           class="canvas-container relative w-full h-full overflow-hidden transition-all"
@@ -655,6 +647,16 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+    <section
+      class="next-section relative z-[30] h-screen bg-[#FAF7F0] flex items-center justify-center text-gray-900 text-6xl font-bold"
+    >
+      <div class="p-8 text-center leading-tight">
+        <p>Welcome to the Next Section ✨</p>
+        <p class="text-2xl mt-4">
+          This slides up and covers the hero section smoothly.
+        </p>
       </div>
     </section>
   </div>
