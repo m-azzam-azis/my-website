@@ -16,14 +16,14 @@
           Get in touch with me
         </p>
         <button
-          class="w-fit px-16 py-4 rounded-full text-base md:text-lg font-medium hover:opacity-90 hover:translate-x-1 transition-all duration-300 max-md:order-2"
+          class="w-fit py-2 px-10 lg:px-16 lg:py-4 rounded-full text-base md:text-lg font-medium hover:opacity-90 hover:translate-x-1 transition-all duration-300 max-md:order-2"
           style="background: rgba(255, 255, 255, 0.9); color: #100c08; transition: all 0.3s ease;"
         >
           Email
         </button>
       </div>
       <div
-        class="block w-3/4 md:w-full h-px bg-white/30 max-md:order-2 max-md:mx-auto"
+        class="block w-3/4 md:w-full h-px bg-white/30 max-md:order-2 max-md:mx-auto my-2"
       ></div>
 
       <!-- AZZAM huge text -->
@@ -31,7 +31,7 @@
         class="w-full md:w-3/4 max-md:justify-center flex-1 flex items-center max-md:order-1"
       >
         <h2
-          class="font-serif font-bold leading-none text-[12vh] lg:text-[16vh]"
+          class="font-serif font-bold leading-none text-[8vh] sm:text-[10vh] md:text-[12vh] lg:text-[14vh]"
         >
           AZZAM
         </h2>

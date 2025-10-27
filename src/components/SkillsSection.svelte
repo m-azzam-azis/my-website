@@ -19,12 +19,12 @@
 
     // Detailed positions for a circling, slightly scattered effect
     const positionClasses = {
-      "top-left": "top-[14%] left-[8%] -rotate-6",
-      "top-right": "top-[12%] right-[10%] rotate-8",
-      "bottom-left": "bottom-[12%] left-[10%] rotate-4",
-      "bottom-right": "bottom-[14%] right-[8%] -rotate-10",
-      top: "top-[10%] left-[50%] right-[50%]",
-      bottom: "bottom-[10%] left-[50%] right-[50%] ",
+      "top-left": "top-[14%] md:top-[18%] left-[8%] -rotate-6",
+      "top-right": "top-[12%] md:top-[16%] right-[10%] rotate-8",
+      "bottom-left": "bottom-[12%] md:bottom-[16%] left-[10%] rotate-4",
+      "bottom-right": "bottom-[14%] md:bottom-[18%] right-[8%] -rotate-10",
+      top: "top-[10%] md:top-[14%] left-[50%] right-[50%]",
+      bottom: "bottom-[10%] md:bottom-[14%] left-[50%] right-[50%] ",
     };
 
     return `${baseClasses} ${positionClasses[position] || ""}`;
@@ -226,9 +226,7 @@
         <div class={getIconPositionClasses(tech.position)}>
           <Icon
             icon={tech.icon}
-            width="64"
-            height="64"
-            class={`${tech.color} w-16 h-16 lg:size-20 group-hover:drop-shadow-xl`}
+            class={`${tech.color} size-12 sm:size-16 md:size-20 lg:size-24 group-hover:drop-shadow-xl`}
           />
           <span
             class={`text-sm font-semibold mt-1 text-[#1F2937] opacity-80 transition-opacity duration-300 group-hover:opacity-100`}

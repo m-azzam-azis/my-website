@@ -38,7 +38,7 @@
       title: "Heredicheck",
       image: "/projects/heredicheck.png",
       description:
-        "Predicts hereditary disease risks using Graph Neural Networks and FHIR-compliant synthetic data. trains GNNs for disease prediction, and integrates seamlessly with healthcare APIs.",
+        "Predicts hereditary disease risks using Neural Networks that is FHIR-compliant. trains GNNs for disease prediction and integrates seamlessly with healthcare APIs.",
       tools: [
         { name: "Next.js", icon: "devicon:nextjs" },
         { name: "Python", icon: "devicon:python" },
@@ -74,7 +74,7 @@
       title: "Heartbit",
       image: "/projects/heartbit.jpeg",
       description:
-        "An on-chain Bitcoin inheritance protocol built on Stacks. Users set custom inactivity periods, assign recipients, and funds automatically redistribute after designated period ends",
+        "An on-chain Bitcoin inheritance protocol built on Stacks. System can distribute funds to assigned recipients after a certain inactivity periods.",
       tools: [
         { name: "Next.js", icon: "devicon:nextjs" },
         { name: "Tailwind CSS", icon: "devicon:tailwindcss" },
@@ -170,7 +170,7 @@
 
 <div
   bind:this={rootElement}
-  class="min-h-[300vh] bg-[#13795B] font-inter text-white opacity-100 relative"
+  class="min-h-[300vh] bg-[#13795B] font-inter text-white opacity-100 relative overflow-x-hidden"
 >
   <div class="bg-[#13795b] h-10 top-10 w-full"></div>
   <div
@@ -196,7 +196,7 @@
       >
         {#each projects as project}
           <div
-            class="h-[65vh] md:h-[85vh] bg-white text-black rounded-3xl shadow-2xl overflow-hidden flex-shrink-0 w-[90vw] sm:w-[70vw] md:w-[60vw] lg:w-[45vw] xl:w-[40vw] transition-transform duration-500 hover:scale-[1.02]"
+            class="h-[70vh] md:h-[85vh] bg-white text-black rounded-3xl shadow-2xl overflow-hidden flex-shrink-0 w-[90vw] sm:w-[70vw] md:w-[60vw] lg:w-[45vw] xl:w-[40vw] transition-transform duration-500 hover:scale-[1.02]"
           >
             <img
               src={project.image}
@@ -244,7 +244,7 @@
                   </p>
                 </div>
 
-                <p class="text-sm font-bold text-gray-900 mb-2">Build with:</p>
+                <p class="text-sm font-bold text-gray-900 my-2">Build with:</p>
 
                 <div class="flex flex-wrap gap-2 sm:gap-4">
                   {#each project.tools as tool}
