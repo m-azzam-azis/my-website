@@ -1,4 +1,13 @@
-<script></script>
+<script>
+  // Split the email into two parts to prevent simple text scraping
+  const user = "m.azzam.azis";
+  const domain = "gmail.com";
+
+  // Create a function to build the full mailto link
+  const getMailtoLink = () => {
+    return "mailto:" + user + "@" + domain;
+  };
+</script>
 
 <div class="bg-[#100c08] min-h-screen p-4 md:p-8">
   <footer
@@ -15,12 +24,13 @@
         <p class="text-white/60 text-base md:text-lg max-md:text-center">
           Get in touch with me
         </p>
-        <button
+        <a
+          href={getMailtoLink()}
           class="w-fit py-2 px-10 lg:px-16 lg:py-4 rounded-full text-base md:text-lg font-medium hover:opacity-90 hover:translate-x-1 transition-all duration-300 max-md:order-2"
           style="background: rgba(255, 255, 255, 0.9); color: #100c08; transition: all 0.3s ease;"
         >
           Email
-        </button>
+        </a>
       </div>
       <div
         class="block w-3/4 md:w-full h-px bg-white/30 max-md:order-2 max-md:mx-auto my-2"

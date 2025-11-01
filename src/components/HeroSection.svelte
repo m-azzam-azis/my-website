@@ -219,7 +219,7 @@
 
   // Bento Grid Data (moved here)
   const name = "Azzam";
-  const email = "m.azzam.azis@gmail.com";
+
   const socials = [
     {
       name: "linkedin",
@@ -250,6 +250,12 @@
     "Crafting clean, maintainable, and scalable code",
     "Transforming concepts into powerful digital solutions",
   ];
+
+  const user = "m.azzam.azis";
+  const domain = "gmail.com";
+  const getMailtoLink = () => {
+    return "mailto:" + user + "@" + domain;
+  };
 </script>
 
 <section
@@ -406,7 +412,7 @@
           </div>
 
           <a
-            href={`mailto:${email}`}
+            href={getMailtoLink()}
             class="bg-emerald-700 rounded-2xl md:rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center md:col-span-3 {cardDecorations} hover:scale-[1.01]"
           >
             <h2
@@ -417,7 +423,7 @@
             <span
               class="bg-white hover:bg-gray-100 transition-colors text-emerald-700 px-6 py-3 md:px-10 md:py-4 rounded-full text-sm md:text-base lg:text-lg font-medium shadow-md hover:shadow-lg"
             >
-              {email}
+              {user}@{domain}
             </span>
           </a>
         </div>
